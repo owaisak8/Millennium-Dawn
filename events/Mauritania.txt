@@ -1,4 +1,5 @@
 add_namespace = MAU
+# Package workflow checkout optimization and event content remains isolated in this namespace.
 
 country_event = {
 	id = MAU.1

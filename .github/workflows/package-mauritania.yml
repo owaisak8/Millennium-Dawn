@@ -36,6 +36,7 @@ jobs:
           sparse-checkout: |
             README.md
             descriptor.mod
+            Mauritania_Sahelian_Republic.mod
             integration/README.md
             common/national_focus/05_mauritania.txt
             common/national_focus/05_algeria.txt
@@ -165,6 +166,7 @@ jobs:
           ROOT="Mauritania_Sahelian_Republic"
           mkdir -p "$ROOT"/common/{national_focus,ideas,decisions/categories,scripted_effects,scripted_triggers,on_actions,ai_strategy_plans}
           mkdir -p "$ROOT"/events "$ROOT"/localisation/english "$ROOT"/integration releases
+          test -f Mauritania_Sahelian_Republic.mod
           cp descriptor.mod "$ROOT/descriptor.mod"
           cp README.md "$ROOT/README.md"
           cp integration/README.md "$ROOT/integration/README.md"
@@ -180,6 +182,7 @@ jobs:
           cp localisation/english/MD_focus_MAU_l_english.yml "$ROOT/localisation/english/"
           zip -r releases/Mauritania_Sahelian_Republic_v1.0.0.zip "$ROOT" Mauritania_Sahelian_Republic.mod
           unzip -t releases/Mauritania_Sahelian_Republic_v1.0.0.zip
+          unzip -Z1 releases/Mauritania_Sahelian_Republic_v1.0.0.zip | grep -Fxq "Mauritania_Sahelian_Republic.mod"
 
       - name: Commit release ZIP to branch
         shell: bash

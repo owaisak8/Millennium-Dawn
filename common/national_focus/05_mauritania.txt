@@ -1,0 +1,1809 @@
+# Mauritania country focus tree. Historical spine with reform and development alternatives.
+# Package workflow validation rerun after preflight regex correction.
+focus_tree = {
+	id = MAU_focus
+	country = {
+		factor = 0
+		modifier = {
+			tag = MAU
+			add = 100
+		}
+	}
+	continuous_focus_position = { x = 25 y = 1500 }
+	shortcut = {
+		name = political_shortcut_title
+		target = MAU_preserve_prds_government
+		scroll_wheel_factor = 0.80
+	}
+	shortcut = {
+		name = economy_shortcut_title
+		target = MAU_rebuild_snim
+		scroll_wheel_factor = 0.80
+	}
+	shortcut = {
+		name = military_shortcut_title
+		target = MAU_professionalise_the_armed_forces
+		scroll_wheel_factor = 0.80
+	}
+	shortcut = {
+		name = diplomacy_shortcut_title
+		target = MAU_balanced_foreign_policy
+		scroll_wheel_factor = 0.80
+	}
+	initial_show_position = { x = 0 y = 0 }
+
+	focus = {
+		id = MAU_a_nation_at_the_crossroads
+		icon = attack_algeria
+		x = 0
+		y = 0
+
+		cost = 5
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_a_nation_at_the_crossroads executed"
+			add_political_power = 50
+			add_stability = -0.02
+			add_ideas = MAU_prds_patronage
+			add_ideas = MAU_iron_ore_dependency
+			set_country_flag = MAU_campaign_open
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_preserve_prds_government
+		icon = algeria_president
+		x = -5
+		y = 1
+		relative_position_id = MAU_a_nation_at_the_crossroads
+
+		cost = 5
+
+		prerequisite = { focus = MAU_a_nation_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_preserve_prds_government executed"
+			add_political_power = 50
+			add_stability = 0.03
+			set_country_flag = MAU_prds_path
+			set_temp_variable = { party_index = 0 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_rebuild_the_ruling_party
+		icon = alg_media
+		x = -1
+		y = 2
+		relative_position_id = MAU_preserve_prds_government
+
+		cost = 5
+
+		prerequisite = { focus = MAU_preserve_prds_government }
+		available = { MAU_has_prds_government = yes }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_PROPAGANDA }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_rebuild_the_ruling_party executed"
+			add_ideas = MAU_prds_patronage
+			add_political_power = 35
+			set_temp_variable = { party_index = 0 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_manage_the_2003_coup_attempt
+		icon = police_funding_bonus
+		x = 1
+		y = 2
+		relative_position_id = MAU_preserve_prds_government
+
+		cost = 5
+
+		prerequisite = { focus = MAU_preserve_prds_government }
+		available = { date > 2003.1.1 }
+
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_manage_the_2003_coup_attempt executed"
+			add_stability = 0.04
+			army_experience = 10
+			set_country_flag = MAU_coup_response_ready
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_secure_the_constitution
+		icon = democratic_stability
+		x = 0
+		y = 3
+		relative_position_id = MAU_manage_the_2003_coup_attempt
+
+		cost = 5
+
+		prerequisite = { focus = MAU_manage_the_2003_coup_attempt }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_secure_the_constitution executed"
+			add_stability = 0.05
+			add_political_power = 35
+			set_country_flag = MAU_constitutional_guardrails
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_reopen_political_space
+		icon = ukr_peace
+		x = 2
+		y = 2
+		relative_position_id = MAU_preserve_prds_government
+
+		cost = 5
+
+		prerequisite = { focus = MAU_preserve_prds_government }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_reopen_political_space executed"
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			add_stability = 0.02
+			set_country_flag = MAU_opposition_tolerated
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_reconcile_with_the_opposition
+		icon = focus_PER_islamic_solidarity
+		x = 0
+		y = 3
+		relative_position_id = MAU_reopen_political_space
+
+		cost = 5
+
+		prerequisite = { focus = MAU_reopen_political_space }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_reconcile_with_the_opposition executed"
+			add_stability = 0.04
+			add_political_power = 40
+			set_temp_variable = { party_index = 18 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_transition_council
+		icon = sov_military_kafedra
+		x = 0
+		y = 4
+		relative_position_id = MAU_secure_the_constitution
+
+		cost = 5
+
+		prerequisite = { focus = MAU_secure_the_constitution }
+		available = { date > 2005.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_transition_council executed"
+			add_ideas = MAU_transitional_council
+			set_country_flag = MAU_transition_path
+			add_political_power = 50
+			add_stability = -0.03
+		}
+
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_prepare_the_2006_transition
+		icon = election2
+		x = 0
+		y = 5
+		relative_position_id = MAU_transition_council
+
+		cost = 5
+
+		prerequisite = { focus = MAU_transition_council }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_prepare_the_2006_transition executed"
+			add_stability = 0.05
+			add_political_power = 60
+			set_temp_variable = { party_index = 13 }
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_return_to_civilian_rule
+		icon = democratic_stability
+		x = 0
+		y = 6
+		relative_position_id = MAU_prepare_the_2006_transition
+
+		cost = 5
+
+		prerequisite = { focus = MAU_prepare_the_2006_transition }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_return_to_civilian_rule executed"
+			remove_ideas = MAU_transitional_council
+			add_ideas = MAU_mithaq_coalition
+			set_country_flag = MAU_civilian_transition
+			add_stability = 0.06
+			set_temp_variable = { party_index = 13 }
+			set_temp_variable = { party_popularity_increase = 0.04 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_strengthen_the_national_assembly
+		icon = alg_dostor
+		x = 0
+		y = 7
+		relative_position_id = MAU_return_to_civilian_rule
+
+		cost = 5
+
+		prerequisite = { focus = MAU_return_to_civilian_rule }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_strengthen_the_national_assembly executed"
+			add_ideas = MAU_parliamentary_reform
+			add_political_power = 50
+			add_stability = 0.04
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_protect_the_2007_mandate
+		icon = ukr_peace
+		x = 1
+		y = 7
+		relative_position_id = MAU_return_to_civilian_rule
+
+		cost = 5
+
+		prerequisite = { focus = MAU_return_to_civilian_rule }
+		available = { date > 2007.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_protect_the_2007_mandate executed"
+			set_country_flag = MAU_sidi_mandate
+			add_stability = 0.05
+			add_political_power = 50
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_prevent_the_2008_coup
+		icon = democratic_stability
+		x = 2
+		y = 8
+		relative_position_id = MAU_protect_the_2007_mandate
+
+		cost = 5
+
+		prerequisite = { focus = MAU_protect_the_2007_mandate }
+		mutually_exclusive = { focus = MAU_consolidate_the_aziz_order }
+		available = { date > 2007.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_prevent_the_2008_coup executed"
+			add_ideas = MAU_civilian_control
+			add_stability = 0.05
+			add_political_power = 35
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_negotiate_the_dakar_accord
+		icon = dangerous_deal3
+		x = 3
+		y = 9
+		relative_position_id = MAU_consolidate_the_aziz_order
+
+		cost = 5
+
+		prerequisite = { focus = MAU_consolidate_the_aziz_order }
+		available = { date > 2008.8.6 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_POLICY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_negotiate_the_dakar_accord executed"
+			add_stability = 0.04
+			add_political_power = 40
+			set_country_flag = MAU_dakar_framework
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_consolidate_the_aziz_order
+		icon = sov_military_kafedra
+		x = 4
+		y = 7
+		relative_position_id = MAU_protect_the_2007_mandate
+
+		cost = 5
+
+		prerequisite = { focus = MAU_protect_the_2007_mandate }
+		mutually_exclusive = { focus = MAU_prevent_the_2008_coup }
+		available = { date > 2008.8.6 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_consolidate_the_aziz_order executed"
+			add_ideas = MAU_presidential_centralisation
+			set_country_flag = MAU_aziz_path
+			add_stability = -0.03
+			add_war_support = 0.03
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_organise_the_2009_election
+		icon = election2
+		x = 0
+		y = 8
+		relative_position_id = MAU_consolidate_the_aziz_order
+
+		cost = 5
+
+		prerequisite = { focus = MAU_negotiate_the_dakar_accord }
+		available = { date > 2009.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_organise_the_2009_election executed"
+			add_political_power = 60
+			add_stability = 0.04
+			set_country_flag = MAU_2009_election_path
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_2019_orderly_handover
+		icon = democratic_stability
+		x = 0
+		y = 9
+		relative_position_id = MAU_organise_the_2009_election
+
+		cost = 5
+
+		prerequisite = { focus = MAU_organise_the_2009_election }
+		available = { date > 2018.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_2019_orderly_handover executed"
+			add_ideas = MAU_orderly_handover
+			add_stability = 0.05
+			add_political_power = 40
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_modernise_el_insaf
+		icon = alg_media
+		x = 1
+		y = 10
+		relative_position_id = MAU_2019_orderly_handover
+
+		cost = 5
+
+		prerequisite = { focus = MAU_2019_orderly_handover }
+		available = { date > 2021.1.1 }
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_modernise_el_insaf executed"
+			add_political_power = 40
+			set_temp_variable = { party_index = 20 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_strengthen_civilian_oversight
+		icon = democratic_stability
+		x = 2
+		y = 10
+		relative_position_id = MAU_2019_orderly_handover
+
+		cost = 5
+
+		prerequisite = { focus = MAU_2019_orderly_handover }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_strengthen_civilian_oversight executed"
+			add_ideas = MAU_civilian_control
+			add_stability = 0.04
+			army_experience = 5
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_rebuild_snim
+		icon = focus_PER_increase_oil_sales
+		x = -2
+		y = 1
+		relative_position_id = MAU_a_nation_at_the_crossroads
+
+		cost = 5
+
+		prerequisite = { focus = MAU_a_nation_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESOURCE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_rebuild_snim executed"
+			add_ideas = MAU_snim_reform
+			add_to_variable = { MAU_mining_capacity = 1 }
+			add_political_power = 20
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_the_zouerate_railway
+		icon = focus_algerian_industry
+		x = -2
+		y = 2
+		relative_position_id = MAU_rebuild_snim
+
+		cost = 5
+
+		prerequisite = { focus = MAU_rebuild_snim }
+		search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_the_zouerate_railway executed"
+			random_controlled_state = { one_random_infrastructure = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_modernise_nouadhibou_port
+		icon = SOV_kasya_workers
+		x = -1
+		y = 3
+		relative_position_id = MAU_expand_the_zouerate_railway
+
+		cost = 5
+
+		prerequisite = { focus = MAU_expand_the_zouerate_railway }
+		search_filters = { FOCUS_FILTER_TRADE FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_modernise_nouadhibou_port executed"
+			random_controlled_state = { one_random_infrastructure = yes }
+			add_ideas = MAU_fisheries_exports
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_process_iron_at_home
+		icon = focus_algerian_industry
+		x = 0
+		y = 4
+		relative_position_id = MAU_modernise_nouadhibou_port
+
+		cost = 5
+
+		prerequisite = { focus = MAU_modernise_nouadhibou_port }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_process_iron_at_home executed"
+			add_ideas = MAU_value_added_industry
+			add_research_slot = 1
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_regulate_the_fisheries
+		icon = focus_PER_increase_oil_sales
+		x = 1
+		y = 2
+		relative_position_id = MAU_rebuild_snim
+
+		cost = 5
+
+		prerequisite = { focus = MAU_rebuild_snim }
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_TRADE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_regulate_the_fisheries executed"
+			add_ideas = MAU_fisheries_exports
+			add_stability = 0.02
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_build_fish_processing_capacity
+		icon = focus_algerian_industry
+		x = 1
+		y = 3
+		relative_position_id = MAU_regulate_the_fisheries
+
+		cost = 5
+
+		prerequisite = { focus = MAU_regulate_the_fisheries }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_build_fish_processing_capacity executed"
+			random_controlled_state = { one_random_industrial_complex = yes }
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_learn_from_chinguetti
+		icon = sonatrach
+		x = 2
+		y = 2
+		relative_position_id = MAU_rebuild_snim
+
+		cost = 5
+
+		prerequisite = { focus = MAU_rebuild_snim }
+		available = { date > 2005.1.1 }
+
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_learn_from_chinguetti executed"
+			add_ideas = MAU_hydrocarbon_lessons
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_prepare_offshore_gas
+		icon = focus_PER_increase_oil_sales
+		x = 3
+		y = 3
+		relative_position_id = MAU_learn_from_chinguetti
+
+		cost = 5
+
+		prerequisite = { focus = MAU_learn_from_chinguetti }
+		available = { date > 2015.1.1 }
+
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_FOREIGN_INVESTMENTS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_prepare_offshore_gas executed"
+			set_country_flag = MAU_gta_preparation
+			add_ideas = MAU_gas_development
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_harness_gta_gas
+		icon = sonatrach
+		x = 4
+		y = 4
+		relative_position_id = MAU_prepare_offshore_gas
+
+		cost = 5
+
+		prerequisite = { focus = MAU_prepare_offshore_gas }
+		available = { date > 2024.12.31 }
+
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_ECONOMY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_harness_gta_gas executed"
+			add_ideas = MAU_gta_gas_revenue
+			add_political_power = 40
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_create_a_national_revenue_framework
+		icon = MEX_Political_corruption
+		x = 5
+		y = 5
+		relative_position_id = MAU_harness_gta_gas
+
+		cost = 5
+
+		prerequisite = { focus = MAU_harness_gta_gas }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_CORRUPTION }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_create_a_national_revenue_framework executed"
+			add_ideas = MAU_resource_revenue_framework
+			add_stability = 0.04
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_develop_the_senegal_river_basin
+		icon = focus_algerian_industry
+		x = -1
+		y = 5
+		relative_position_id = MAU_rebuild_snim
+
+		cost = 5
+
+		prerequisite = { focus = MAU_rebuild_snim }
+		search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_develop_the_senegal_river_basin executed"
+			add_to_variable = { MAU_agricultural_development = 1 }
+			add_ideas = MAU_river_agriculture
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_gorgol_irrigation
+		icon = walfare_state
+		x = -1
+		y = 6
+		relative_position_id = MAU_develop_the_senegal_river_basin
+
+		cost = 5
+
+		prerequisite = { focus = MAU_develop_the_senegal_river_basin }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_gorgol_irrigation executed"
+			random_controlled_state = { one_random_infrastructure = yes }
+			add_stability = 0.02
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_electrify_the_interior
+		icon = focus_algerian_industry
+		x = 0
+		y = 7
+		relative_position_id = MAU_expand_gorgol_irrigation
+
+		cost = 5
+
+		prerequisite = { focus = MAU_expand_gorgol_irrigation }
+		search_filters = { FOCUS_FILTER_POWER_INFRASTRUCTURE FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_electrify_the_interior executed"
+			add_ideas = MAU_national_electrification
+			
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_develop_solar_and_wind
+		icon = focus_algerian_industry
+		x = 1
+		y = 5
+		relative_position_id = MAU_develop_the_senegal_river_basin
+
+		cost = 5
+
+		prerequisite = { focus = MAU_develop_the_senegal_river_basin }
+		search_filters = { FOCUS_FILTER_ENVIRONMENT FOCUS_FILTER_POWER_INFRASTRUCTURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_develop_solar_and_wind executed"
+			add_ideas = MAU_solar_programme
+			add_research_slot = 1
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_connect_rural_communities
+		icon = SOV_kasya_workers
+		x = 2
+		y = 6
+		relative_position_id = MAU_electrify_the_interior
+
+		cost = 5
+
+		prerequisite = { focus = MAU_electrify_the_interior }
+		search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_EXPENDITURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_connect_rural_communities executed"
+			random_controlled_state = { one_random_infrastructure = yes }
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_professionalise_the_armed_forces
+		icon = police_funding_bonus
+		x = 1
+		y = 1
+		relative_position_id = MAU_a_nation_at_the_crossroads
+
+		cost = 5
+
+		prerequisite = { focus = MAU_a_nation_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_MILITARY_LAWS FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_professionalise_the_armed_forces executed"
+			add_ideas = MAU_professional_armed_forces
+			army_experience = 15
+			add_command_power = 10
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_train_desert_mobile_units
+		icon = Jihadi_Fighters
+		x = 0
+		y = 2
+		relative_position_id = MAU_professionalise_the_armed_forces
+
+		cost = 5
+
+		prerequisite = { focus = MAU_professionalise_the_armed_forces }
+		search_filters = { FOCUS_FILTER_ARMY FOCUS_FILTER_MANPOWER }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_train_desert_mobile_units executed"
+			army_experience = 10
+			add_ideas = MAU_desert_mobility
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_secure_the_eastern_frontier
+		icon = sov_military_kafedra
+		x = -1
+		y = 3
+		relative_position_id = MAU_train_desert_mobile_units
+
+		cost = 5
+
+		prerequisite = { focus = MAU_train_desert_mobile_units }
+		search_filters = { FOCUS_FILTER_INSURGENCY FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_secure_the_eastern_frontier executed"
+			add_ideas = MAU_sahelian_border_pressure
+			add_war_support = 0.03
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_coordinate_intelligence
+		icon = internet_censorship
+		x = 1
+		y = 3
+		relative_position_id = MAU_train_desert_mobile_units
+
+		cost = 5
+
+		prerequisite = { focus = MAU_train_desert_mobile_units }
+		search_filters = { FOCUS_FILTER_INSURGENCY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_coordinate_intelligence executed"
+			add_political_power = 30
+			army_experience = 5
+			set_country_flag = MAU_intelligence_network
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_protect_the_atlantic_coast
+		icon = SOV_kasya_workers
+		x = 2
+		y = 2
+		relative_position_id = MAU_professionalise_the_armed_forces
+
+		cost = 5
+
+		prerequisite = { focus = MAU_professionalise_the_armed_forces }
+		search_filters = { FOCUS_FILTER_NAVY FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_protect_the_atlantic_coast executed"
+			add_ideas = MAU_coast_guard
+			navy_experience = 10
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_join_sahelian_security_operations
+		icon = sov_military_kafedra
+		x = 2
+		y = 4
+		relative_position_id = MAU_coordinate_intelligence
+
+		cost = 5
+
+		prerequisite = { focus = MAU_coordinate_intelligence }
+		available = { date > 2014.1.1 }
+
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INSURGENCY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_join_sahelian_security_operations executed"
+			add_ideas = MAU_sahel_cooperation
+			add_stability = 0.02
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_balanced_foreign_policy
+		icon = focus_PER_islamic_solidarity
+		x = 4
+		y = 1
+		relative_position_id = MAU_a_nation_at_the_crossroads
+
+		cost = 5
+
+		prerequisite = { focus = MAU_a_nation_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_DIPLOMACY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_balanced_foreign_policy executed"
+			add_political_power = 35
+			add_ideas = MAU_balanced_diplomacy
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_rebuild_ties_with_algeria
+		icon = ukr_peace
+		x = 0
+		y = 2
+		relative_position_id = MAU_balanced_foreign_policy
+
+		cost = 5
+
+		prerequisite = { focus = MAU_balanced_foreign_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_DIPLOMACY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_rebuild_ties_with_algeria executed"
+			add_opinion_modifier = { target = ALG modifier = friendly_trade_relations }
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_manage_relations_with_morocco
+		icon = focus_PER_islamic_solidarity
+		x = 1
+		y = 3
+		relative_position_id = MAU_balanced_foreign_policy
+
+		cost = 5
+
+		prerequisite = { focus = MAU_balanced_foreign_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_DIPLOMACY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_manage_relations_with_morocco executed"
+			add_opinion_modifier = { target = MOR modifier = friendly_trade_relations }
+			add_political_power = 25
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_preserve_french_training_links
+		icon = ukr_peace
+		x = 2
+		y = 2
+		relative_position_id = MAU_balanced_foreign_policy
+
+		cost = 5
+
+		prerequisite = { focus = MAU_balanced_foreign_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_MILITARY_LAWS }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_preserve_french_training_links executed"
+			add_opinion_modifier = { target = FRA modifier = friendly_trade_relations }
+			army_experience = 5
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_chinese_infrastructure_investment
+		icon = focus_algerian_industry
+		x = 3
+		y = 3
+		relative_position_id = MAU_balanced_foreign_policy
+
+		cost = 5
+
+		prerequisite = { focus = MAU_balanced_foreign_policy }
+		search_filters = { FOCUS_FILTER_FOREIGN_INVESTMENTS FOCUS_FILTER_INFRASTRUCTURE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_chinese_infrastructure_investment executed"
+			add_opinion_modifier = { target = CHI modifier = friendly_trade_relations }
+			add_ideas = MAU_external_investment
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_strengthen_arab_african_diplomacy
+		icon = focus_PER_islamic_solidarity
+		x = 4
+		y = 4
+		relative_position_id = MAU_balanced_foreign_policy
+
+		cost = 5
+
+		prerequisite = { focus = MAU_balanced_foreign_policy focus = MAU_rebuild_ties_with_algeria }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_INFLUENCE }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_strengthen_arab_african_diplomacy executed"
+			add_political_power = 35
+			add_stability = 0.02
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_build_national_cohesion
+		icon = walfare_state
+		x = 7
+		y = 1
+		relative_position_id = MAU_a_nation_at_the_crossroads
+
+		cost = 5
+
+		prerequisite = { focus = MAU_a_nation_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_build_national_cohesion executed"
+			add_ideas = MAU_national_cohesion
+			add_stability = 0.04
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_enforce_the_anti_slavery_law
+		icon = democratic_stability
+		x = 0
+		y = 2
+		relative_position_id = MAU_build_national_cohesion
+
+		cost = 5
+
+		prerequisite = { focus = MAU_build_national_cohesion }
+		available = { date > 2007.1.1 }
+
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_CORRUPTION }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_enforce_the_anti_slavery_law executed"
+			add_ideas = MAU_anti_slavery_enforcement
+			add_stability = 0.03
+			set_country_flag = MAU_anti_slavery_programme
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_specialised_anti_slavery_courts
+		icon = alg_dostor
+		x = 0
+		y = 3
+		relative_position_id = MAU_enforce_the_anti_slavery_law
+
+		cost = 5
+
+		prerequisite = { focus = MAU_enforce_the_anti_slavery_law }
+		available = { date > 2015.1.1 }
+
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_CORRUPTION }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_specialised_anti_slavery_courts executed"
+			add_ideas = MAU_specialised_courts
+			add_political_power = 35
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_extend_rural_schooling
+		icon = walfare_state
+		x = 1
+		y = 2
+		relative_position_id = MAU_build_national_cohesion
+
+		cost = 5
+
+		prerequisite = { focus = MAU_build_national_cohesion }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_extend_rural_schooling executed"
+			add_ideas = MAU_rural_education
+			add_research_slot = 1
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_public_healthcare
+		icon = walfare_state
+		x = 2
+		y = 3
+		relative_position_id = MAU_extend_rural_schooling
+
+		cost = 5
+
+		prerequisite = { focus = MAU_extend_rural_schooling }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_public_healthcare executed"
+			add_ideas = MAU_public_healthcare
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_strengthen_local_government
+		icon = alg_dostor
+		x = 3
+		y = 2
+		relative_position_id = MAU_build_national_cohesion
+
+		cost = 5
+
+		prerequisite = { focus = MAU_build_national_cohesion }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_strengthen_local_government executed"
+			add_political_power = 35
+			add_stability = 0.03
+		}
+
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_support_multiparty_elections
+		icon = Election_graphics
+		x = -1
+		y = 1
+		relative_position_id = MAU_reopen_political_space
+		cost = 5
+		prerequisite = { focus = MAU_reopen_political_space }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_support_multiparty_elections executed"
+			add_stability = 0.03
+			add_political_power = 25
+			set_temp_variable = { party_index = 2 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_restore_action_for_change
+		icon = opposition_aze
+		x = -1
+		y = 1
+		relative_position_id = MAU_support_multiparty_elections
+		cost = 5
+		prerequisite = { focus = MAU_support_multiparty_elections }
+		available = { has_country_flag = MAU_action_for_change_banned }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_restore_action_for_change executed"
+			set_temp_variable = { party_index = 2 }
+			unban_party_scripted_call = yes
+			set_temp_variable = { party_popularity_increase = 0.02 }
+			change_relative_party_popularity = yes
+			add_political_power = 25
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_protect_independent_press
+		icon = press_censorship
+		x = 1
+		y = 1
+		relative_position_id = MAU_support_multiparty_elections
+		cost = 5
+		prerequisite = { focus = MAU_support_multiparty_elections }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_PROPAGANDA }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_protect_independent_press executed"
+			add_ideas = MAU_parliamentary_reform
+			add_stability = 0.03
+			add_political_power = 25
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_strengthen_judicial_independence
+		icon = alg_judge
+		x = 0
+		y = 2
+		relative_position_id = MAU_support_multiparty_elections
+		cost = 5
+		prerequisite = { focus = MAU_support_multiparty_elections }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_CORRUPTION }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_strengthen_judicial_independence executed"
+			add_ideas = MAU_specialised_courts
+			add_stability = 0.03
+			add_political_power = 30
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_institutionalise_civilian_rule
+		icon = alg_dostor
+		x = 0
+		y = 1
+		relative_position_id = MAU_strengthen_the_national_assembly
+		cost = 5
+		prerequisite = { focus = MAU_strengthen_the_national_assembly }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_institutionalise_civilian_rule executed"
+			add_ideas = MAU_civilian_control
+			add_stability = 0.04
+			add_political_power = 35
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_limit_presidential_interference
+		icon = democratic_stability
+		x = -1
+		y = 1
+		relative_position_id = MAU_institutionalise_civilian_rule
+		cost = 5
+		prerequisite = { focus = MAU_institutionalise_civilian_rule }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_limit_presidential_interference executed"
+			add_ideas = MAU_parliamentary_reform
+			add_stability = 0.04
+			add_political_power = 30
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_mithaq_coalition
+		icon = volunteer_alliance
+		x = 1
+		y = 1
+		relative_position_id = MAU_institutionalise_civilian_rule
+		cost = 5
+		prerequisite = { focus = MAU_institutionalise_civilian_rule }
+		available = { has_country_flag = MAU_sidi_mandate }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_FACTION }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_mithaq_coalition executed"
+			MAU_set_civilian_coalition = yes
+			add_stability = 0.04
+			add_political_power = 25
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_dialogue_with_islamist_movement
+		icon = focus_PER_islamic_solidarity
+		x = 1
+		y = 1
+		relative_position_id = MAU_reconcile_with_the_opposition
+		cost = 5
+		prerequisite = { focus = MAU_reconcile_with_the_opposition }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_SOCIAL_CONSERVATISM }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_dialogue_with_islamist_movement executed"
+			set_temp_variable = { party_index = 12 }
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			add_stability = 0.02
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_legalise_tawassoul_participation
+		icon = focus_PER_islamic_solidarity
+		x = 1
+		y = 1
+		relative_position_id = MAU_dialogue_with_islamist_movement
+		cost = 5
+		prerequisite = { focus = MAU_dialogue_with_islamist_movement }
+		available = { date > 2007.1.1 }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_SOCIAL_CONSERVATISM }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_legalise_tawassoul_participation executed"
+			set_temp_variable = { party_index = 12 }
+			unban_party_scripted_call = yes
+			set_temp_variable = { party_popularity_increase = 0.03 }
+			change_relative_party_popularity = yes
+			add_political_power = 20
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_parliamentary_social_programme
+		icon = walfare_state
+		x = 1
+		y = 1
+		relative_position_id = MAU_legalise_tawassoul_participation
+		cost = 5
+		prerequisite = { focus = MAU_legalise_tawassoul_participation }
+		search_filters = { FOCUS_FILTER_SOCIAL_CONSERVATISM FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_parliamentary_social_programme executed"
+			add_ideas = MAU_public_healthcare
+			add_stability = 0.04
+			add_political_power = 20
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_build_resource_skills
+		icon = generic_university
+		x = 1
+		y = 1
+		relative_position_id = MAU_process_iron_at_home
+		cost = 5
+		prerequisite = { focus = MAU_process_iron_at_home }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_build_resource_skills executed"
+			add_research_slot = 1
+			add_ideas = MAU_snim_reform
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_domestic_gas_supply
+		icon = sonatrach
+		x = 1
+		y = 1
+		relative_position_id = MAU_harness_gta_gas
+		cost = 5
+		prerequisite = { focus = MAU_harness_gta_gas }
+		available = { date > 2024.12.31 }
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_POWER_INFRASTRUCTURE }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_domestic_gas_supply executed"
+			add_ideas = MAU_gta_gas_revenue
+			add_stability = 0.02
+			add_political_power = 20
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_gas_transparency_and_stabilisation
+		icon = barrels
+		x = 1
+		y = 1
+		relative_position_id = MAU_create_a_national_revenue_framework
+		cost = 5
+		prerequisite = { focus = MAU_create_a_national_revenue_framework }
+		search_filters = { FOCUS_FILTER_ECONOMY FOCUS_FILTER_CORRUPTION }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_gas_transparency_and_stabilisation executed"
+			add_ideas = MAU_resource_revenue_framework
+			add_stability = 0.03
+			add_political_power = 20
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_develop_sahelian_security_centre
+		icon = Jihadi_Fighters
+		x = 1
+		y = 1
+		relative_position_id = MAU_join_sahelian_security_operations
+		cost = 5
+		prerequisite = { focus = MAU_join_sahelian_security_operations }
+		search_filters = { FOCUS_FILTER_INSURGENCY FOCUS_FILTER_MILITARY_LAWS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_develop_sahelian_security_centre executed"
+			add_ideas = MAU_sahel_cooperation
+			army_experience = 5
+			add_political_power = 25
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_empower_regional_councils
+		icon = alg_indepe
+		x = 0
+		y = 1
+		relative_position_id = MAU_strengthen_local_government
+		cost = 5
+		prerequisite = { focus = MAU_strengthen_local_government }
+		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_empower_regional_councils executed"
+			add_stability = 0.04
+			add_political_power = 25
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_rural_livelihoods
+		icon = water_conservation
+		x = -1
+		y = 1
+		relative_position_id = MAU_develop_the_senegal_river_basin
+		cost = 5
+		prerequisite = { focus = MAU_develop_the_senegal_river_basin }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ENVIRONMENT }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_rural_livelihoods executed"
+			add_ideas = MAU_river_agriculture
+			add_stability = 0.03
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_expand_mining_training
+		icon = generic_university
+		x = -1
+		y = 1
+		relative_position_id = MAU_rebuild_snim
+		cost = 5
+		prerequisite = { focus = MAU_rebuild_snim }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_RESOURCE }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_expand_mining_training executed"
+			add_research_slot = 1
+			add_ideas = MAU_snim_reform
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_promote_sustainable_fisheries
+		icon = export_economy
+		x = 1
+		y = 1
+		relative_position_id = MAU_regulate_the_fisheries
+		cost = 5
+		prerequisite = { focus = MAU_regulate_the_fisheries }
+		search_filters = { FOCUS_FILTER_RESOURCE FOCUS_FILTER_ENVIRONMENT }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_promote_sustainable_fisheries executed"
+			add_ideas = MAU_fisheries_exports
+			add_stability = 0.02
+			add_political_power = 15
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_create_a_sahelian_trade_corridor
+		icon = beyond_east_africa
+		x = 1
+		y = 1
+		relative_position_id = MAU_strengthen_arab_african_diplomacy
+		cost = 5
+		prerequisite = { focus = MAU_strengthen_arab_african_diplomacy }
+		search_filters = { FOCUS_FILTER_FOREIGN_POLICY FOCUS_FILTER_TRADE }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_create_a_sahelian_trade_corridor executed"
+			add_ideas = MAU_balanced_diplomacy
+			add_political_power = 30
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_el_insaf_institutional_reform
+		icon = education_reform
+		x = 1
+		y = 1
+		relative_position_id = MAU_modernise_el_insaf
+		cost = 5
+		prerequisite = { focus = MAU_modernise_el_insaf }
+		available = { date > 2021.1.1 }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNAL_AFFAIRS }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_el_insaf_institutional_reform executed"
+			add_ideas = MAU_orderly_handover
+			add_stability = 0.03
+			add_political_power = 20
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+
+	focus = {
+		id = MAU_aziz_infrastructure_drive
+		icon = focus_algerian_industry
+		x = 1
+		y = 1
+		relative_position_id = MAU_consolidate_the_aziz_order
+		cost = 5
+		prerequisite = { focus = MAU_consolidate_the_aziz_order }
+		available = { date > 2008.1.1 }
+		search_filters = { FOCUS_FILTER_INFRASTRUCTURE FOCUS_FILTER_EXPENDITURE }
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus MAU_aziz_infrastructure_drive executed"
+			random_controlled_state = { one_random_industrial_complex = yes }
+			add_stability = 0.02
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_active_mission = bankruptcy_incoming_collapse }
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+	}
+}

@@ -1,0 +1,7 @@
+MAU_is_civilian_government = {
+	NOT = { check_variable = { ruling_party = 22 } }
+}
+
+MAU_has_prds_government = {
+	check_variable = { ruling_party = 0 }
+}

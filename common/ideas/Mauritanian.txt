@@ -1,0 +1,263 @@
+ideas = {
+	country = {
+		MAU_prds_patronage = {
+			picture = sov_media_nationalise_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				political_power_factor = -0.05
+				stability_factor = -0.03
+				consumer_goods_factor = 0.02
+			}
+		}
+		MAU_iron_ore_dependency = {
+			picture = improved_per_capita_productivity_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				local_resources_factor = 0.08
+				industrial_capacity_factory = -0.03
+				consumer_goods_factor = 0.02
+			}
+		}
+		MAU_transitional_council = {
+			picture = generic_military_government
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.04
+				political_power_factor = 0.10
+				democratic_drift = -0.02
+				army_org_factor = 0.05
+			}
+		}
+		MAU_mithaq_coalition = {
+			picture = Presidential_republic
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.06
+				political_power_factor = 0.05
+				democratic_drift = 0.02
+				drift_defence_factor = 0.10
+			}
+		}
+		MAU_parliamentary_reform = {
+			picture = constitutional_changes
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.08
+				democratic_drift = 0.02
+			}
+		}
+		MAU_civilian_control = {
+			picture = democraticreformsideacuba
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.04
+				army_org_factor = -0.02
+				political_power_factor = 0.05
+				drift_defence_factor = 0.15
+			}
+		}
+		MAU_presidential_centralisation = {
+			picture = Presidential_republic
+			allowed_civil_war = { always = yes }
+			modifier = {
+				political_power_factor = 0.12
+				stability_factor = 0.03
+				democratic_drift = -0.02
+			}
+		}
+		MAU_orderly_handover = {
+			picture = democraticreformsideacuba
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.06
+				political_power_factor = 0.05
+				democratic_drift = 0.02
+			}
+		}
+		MAU_snim_reform = {
+			picture = standard_maintenance
+			allowed_civil_war = { always = yes }
+			modifier = {
+				production_speed_industrial_complex_factor = 0.05
+				local_resources_factor = 0.05
+			}
+		}
+		MAU_value_added_industry = {
+			picture = foreign_capital
+			allowed_civil_war = { always = yes }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_speed_industrial_complex_factor = 0.05
+				consumer_goods_factor = -0.02
+			}
+		}
+		MAU_fisheries_exports = {
+			picture = standard_maintenance
+			allowed_civil_war = { always = yes }
+			modifier = {
+				trade_opinion_factor = 0.10
+				local_resources_factor = 0.05
+				stability_factor = 0.02
+			}
+		}
+		MAU_hydrocarbon_lessons = {
+			picture = generic_oil
+			allowed_civil_war = { always = yes }
+			modifier = {
+				local_resources_factor = 0.04
+				consumer_goods_factor = 0.02
+			}
+		}
+		MAU_gas_development = {
+			picture = generic_oil
+			allowed_civil_war = { always = yes }
+			modifier = {
+				production_speed_buildings_factor = 0.03
+				trade_opinion_factor = 0.10
+			}
+		}
+		MAU_gta_gas_revenue = {
+			picture = generic_oil
+			allowed_civil_war = { always = yes }
+			modifier = {
+				local_resources_factor = 0.10
+				consumer_goods_factor = -0.03
+				political_power_factor = 0.05
+			}
+		}
+		MAU_resource_revenue_framework = {
+			picture = generic_corruption
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.04
+				political_power_factor = 0.05
+				consumer_goods_factor = -0.02
+			}
+		}
+		MAU_river_agriculture = {
+			picture = improved_per_capita_productivity_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.03
+				consumer_goods_factor = -0.02
+			}
+		}
+		MAU_national_electrification = {
+			picture = standard_maintenance
+			allowed_civil_war = { always = yes }
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				industrial_capacity_factory = 0.03
+			}
+		}
+		MAU_solar_programme = {
+			picture = planess_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				production_speed_buildings_factor = 0.03
+				research_speed_factor = 0.02
+			}
+		}
+		MAU_professional_armed_forces = {
+			picture = generic_military_government
+			allowed_civil_war = { always = yes }
+			modifier = {
+				army_org_factor = 0.05
+				planning_speed = 0.05
+				command_power_gain_mult = 0.05
+			}
+		}
+		MAU_desert_mobility = {
+			picture = generic_military_government
+			allowed_civil_war = { always = yes }
+			modifier = {
+				army_speed_factor = 0.05
+				army_org_factor = 0.03
+			}
+		}
+		MAU_sahelian_border_pressure = {
+			picture = generic_military_government
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = -0.02
+				army_defence_factor = 0.03
+				war_support_factor = 0.03
+			}
+		}
+		MAU_coast_guard = {
+			picture = planess_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				coastal_bunker = 0.05
+				naval_org_factor = 0.03
+			}
+		}
+		MAU_sahel_cooperation = {
+			picture = generic_military_government
+			allowed_civil_war = { always = yes }
+			modifier = {
+				army_org_factor = 0.03
+				trade_opinion_factor = 0.10
+			}
+		}
+		MAU_balanced_diplomacy = {
+			picture = standard_maintenance
+			allowed_civil_war = { always = yes }
+			modifier = {
+				trade_opinion_factor = 0.10
+				political_power_factor = 0.03
+			}
+		}
+		MAU_external_investment = {
+			picture = foreign_capital
+			allowed_civil_war = { always = yes }
+			modifier = {
+				industrial_capacity_factory = 0.03
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		MAU_national_cohesion = {
+			picture = social_democracy
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.03
+			}
+		}
+		MAU_anti_slavery_enforcement = {
+			picture = social_democracy
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.03
+				democratic_drift = 0.01
+				drift_defence_factor = 0.05
+			}
+		}
+		MAU_specialised_courts = {
+			picture = constitutional_changes
+			allowed_civil_war = { always = yes }
+			modifier = {
+				political_power_factor = 0.04
+				stability_factor = 0.03
+				consumer_goods_factor = -0.01
+			}
+		}
+		MAU_rural_education = {
+			picture = improved_per_capita_productivity_idea
+			allowed_civil_war = { always = yes }
+			modifier = {
+				research_speed_factor = 0.03
+				stability_factor = 0.02
+			}
+		}
+		MAU_public_healthcare = {
+			picture = social_democracy
+			allowed_civil_war = { always = yes }
+			modifier = {
+				stability_factor = 0.03
+				consumer_goods_factor = -0.01
+			}
+		}
+	}
+}

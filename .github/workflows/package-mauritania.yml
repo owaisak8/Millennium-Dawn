@@ -1,0 +1,206 @@
+name: Mauritania Submod Package
+
+on:
+  push:
+    branches:
+      - mauritania-complete-v1.0.0
+    paths:
+      - 'common/national_focus/05_mauritania.txt'
+      - 'common/ideas/Mauritanian.txt'
+      - 'common/decisions/Mauritania.txt'
+      - 'common/decisions/categories/99_MAU_decision_categories.txt'
+      - 'common/scripted_effects/MAU_historical_system.txt'
+      - 'common/scripted_triggers/MAU_historical_triggers.txt'
+      - 'common/on_actions/99_MAU_on_actions.txt'
+      - 'common/ai_strategy_plans/MAU_strategy_plans.txt'
+      - 'common/scripted_localisation/00_MD_politicsview_scripted_localisation.txt'
+      - 'events/Mauritania.txt'
+      - 'localisation/english/MD_focus_MAU_l_english.yml'
+      - 'localisation/english/MD_politics_view_parties_l_english.yml'
+      - 'README.md'
+      - 'integration/README.md'
+      - 'descriptor.mod'
+      - 'Mauritania_Sahelian_Republic.mod'
+      - '.github/workflows/package-mauritania.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            README.md
+            descriptor.mod
+            Mauritania_Sahelian_Republic.mod
+            integration/README.md
+            common/national_focus/05_mauritania.txt
+            common/national_focus/05_algeria.txt
+            common/ideas/Mauritanian.txt
+            common/scripted_effects/MAU_historical_system.txt
+            common/scripted_triggers/MAU_historical_triggers.txt
+            common/on_actions/99_MAU_on_actions.txt
+            common/decisions/Mauritania.txt
+            common/decisions/categories/99_MAU_decision_categories.txt
+            common/ai_strategy_plans/MAU_strategy_plans.txt
+            events/Mauritania.txt
+            localisation/english/MD_focus_MAU_l_english.yml
+            localisation/english/MD_politics_view_parties_l_english.yml
+            common/scripted_localisation/00_MD_politicsview_scripted_localisation.txt
+            interface/MD_decisions.gfx
+            interface/MD_eventpictures.gfx
+          sparse-checkout-cone-mode: false
+
+      - name: Validate Mauritania content references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root = Path(".")
+          required = [
+              "common/national_focus/05_mauritania.txt",
+              "common/ideas/Mauritanian.txt",
+              "common/scripted_effects/MAU_historical_system.txt",
+              "common/scripted_triggers/MAU_historical_triggers.txt",
+              "common/on_actions/99_MAU_on_actions.txt",
+              "common/decisions/Mauritania.txt",
+              "common/decisions/categories/99_MAU_decision_categories.txt",
+              "common/ai_strategy_plans/MAU_strategy_plans.txt",
+              "events/Mauritania.txt",
+              "localisation/english/MD_focus_MAU_l_english.yml",
+              "localisation/english/MD_politics_view_parties_l_english.yml",
+              "common/scripted_localisation/00_MD_politicsview_scripted_localisation.txt",
+              "interface/MD_decisions.gfx",
+              "interface/MD_eventpictures.gfx",
+              "common/national_focus/05_algeria.txt",
+          ]
+          for file in required:
+              if not (root / file).is_file():
+                  raise SystemExit(f"Missing required file: {file}")
+
+          focus = (root / required[0]).read_text(encoding="utf-8-sig")
+          ideas = (root / required[1]).read_text(encoding="utf-8-sig")
+          effects = (root / required[2]).read_text(encoding="utf-8-sig")
+          events = (root / required[8]).read_text(encoding="utf-8-sig")
+          loc = (root / required[9]).read_text(encoding="utf-8-sig")
+
+          focus_ids = re.findall(r"^\s*id\s*=\s*(MAU_[A-Za-z0-9_]+)\s*$", focus, re.M)
+          focus_ids = [i for i in focus_ids if i != "MAU_focus"]
+          if len(focus_ids) < 70:
+              raise SystemExit(f"Expected at least 70 Mauritania focuses; found {len(focus_ids)}")
+          if len(focus_ids) != len(set(focus_ids)):
+              raise SystemExit("Duplicate Mauritania focus IDs")
+
+          missing_focus_loc = [i for i in focus_ids if not re.search(rf"^\s*{re.escape(i)}:", loc, re.M) or not re.search(rf"^\s*{re.escape(i)}_desc:", loc, re.M)]
+          if missing_focus_loc:
+              raise SystemExit("Missing focus localisation: " + ", ".join(missing_focus_loc))
+
+          ids = re.findall(r"^\s*id\s*=\s*(MAU\.\d+)\s*$", events, re.M)
+          if len(ids) != len(set(ids)):
+              raise SystemExit("Duplicate Mauritania event IDs")
+          missing_event_loc = [i for i in ids if not re.search(rf"^\s*{re.escape(i)}\.t:", loc, re.M) or not re.search(rf"^\s*{re.escape(i)}\.d:", loc, re.M)]
+          if missing_event_loc:
+              raise SystemExit("Missing event localisation: " + ", ".join(missing_event_loc))
+
+          idea_ids = set(re.findall(r"^\s*(MAU_[A-Za-z0-9_]+)\s*=\s*\{", ideas, re.M))
+          referenced_ideas = set(re.findall(r"\badd_ideas\s*=\s*(MAU_[A-Za-z0-9_]+)", focus + events + effects))
+          missing_ideas = sorted(referenced_ideas - idea_ids)
+          if missing_ideas:
+              raise SystemExit("Missing MAU ideas: " + ", ".join(missing_ideas))
+
+          for path in required[:9]:
+              content = (root / path).read_text(encoding="utf-8-sig")
+              code = re.sub(r'"[^"]*"', '""', content)
+              code = re.sub(r"#.*", "", code)
+              depth = 0
+              for ch in code:
+                  if ch == "{": depth += 1
+                  elif ch == "}": depth -= 1
+                  if depth < 0: raise SystemExit(f"Unbalanced braces in {path}")
+              if depth != 0: raise SystemExit(f"Unbalanced braces in {path}: depth={depth}")
+
+          if "GFX_placeholder_events" in events:
+              raise SystemExit("Draft placeholder event picture remains")
+          if "add_army_experience" in events:
+              raise SystemExit("Legacy add_army_experience effect remains")
+
+          decision_gfx = (root / "interface/MD_decisions.gfx").read_text(encoding="utf-8-sig")
+          event_gfx = (root / "interface/MD_eventpictures.gfx").read_text(encoding="utf-8-sig")
+          alg_focus = (root / "common/national_focus/05_algeria.txt").read_text(encoding="utf-8-sig")
+
+          decision_icons = set(re.findall(r"^\s*icon\s*=\s*(GFX_[A-Za-z0-9_]+)", (root / "common/decisions/Mauritania.txt").read_text(encoding="utf-8-sig"), re.M))
+          category_icons = set(re.findall(r"^\s*icon\s*=\s*(GFX_[A-Za-z0-9_]+)", (root / "common/decisions/categories/99_MAU_decision_categories.txt").read_text(encoding="utf-8-sig"), re.M))
+          missing_decision_icons = sorted(x for x in decision_icons | category_icons if f'name = "{x}"' not in decision_gfx)
+          if missing_decision_icons:
+              raise SystemExit("Unknown decision sprite(s): " + ", ".join(missing_decision_icons))
+
+          event_pictures = set(re.findall(r"^\s*picture\s*=\s*(GFX_[A-Za-z0-9_]+)", events, re.M))
+          missing_event_pictures = sorted(x for x in event_pictures if f'name = "{x}"' not in event_gfx)
+          if missing_event_pictures:
+              raise SystemExit("Unknown event picture(s): " + ", ".join(missing_event_pictures))
+
+          focus_icons = set(re.findall(r"^\s*icon\s*=\s*([A-Za-z0-9_]+)", focus, re.M))
+          available_focus_icons = set(re.findall(r"^\s*icon\s*=\s*([A-Za-z0-9_]+)", alg_focus, re.M))
+          missing_focus_icons = sorted(focus_icons - available_focus_icons)
+          if missing_focus_icons:
+              raise SystemExit("Unverified focus icon(s): " + ", ".join(missing_focus_icons))
+
+          if "MAU_initialise_party_support" not in effects:
+              raise SystemExit("Mauritania native party-support initialiser is missing")
+          if "party_pop_elect_array^0 = 0.79" not in events:
+              raise SystemExit("2001 parliamentary seat-share proxy is missing from the election arrays")
+
+          print(f"Preflight passed: {len(focus_ids)} focuses, {len(ids)} events, {len(idea_ids)} ideas.")
+          PY
+
+      - name: Assemble installable submod
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="Mauritania_Sahelian_Republic"
+          mkdir -p "$ROOT"/common/{national_focus,ideas,decisions/categories,scripted_effects,scripted_triggers,on_actions,ai_strategy_plans}
+          mkdir -p "$ROOT"/events "$ROOT"/localisation/english "$ROOT"/integration releases
+          test -f Mauritania_Sahelian_Republic.mod
+          cp descriptor.mod "$ROOT/descriptor.mod"
+          cp README.md "$ROOT/README.md"
+          cp integration/README.md "$ROOT/integration/README.md"
+          cp common/national_focus/05_mauritania.txt "$ROOT/common/national_focus/"
+          cp common/ideas/Mauritanian.txt "$ROOT/common/ideas/"
+          cp common/decisions/Mauritania.txt "$ROOT/common/decisions/"
+          cp common/decisions/categories/99_MAU_decision_categories.txt "$ROOT/common/decisions/categories/"
+          cp common/scripted_effects/MAU_historical_system.txt "$ROOT/common/scripted_effects/"
+          cp common/scripted_triggers/MAU_historical_triggers.txt "$ROOT/common/scripted_triggers/"
+          cp common/on_actions/99_MAU_on_actions.txt "$ROOT/common/on_actions/"
+          cp common/ai_strategy_plans/MAU_strategy_plans.txt "$ROOT/common/ai_strategy_plans/"
+          cp events/Mauritania.txt "$ROOT/events/"
+          cp localisation/english/MD_focus_MAU_l_english.yml "$ROOT/localisation/english/"
+          zip -r releases/Mauritania_Sahelian_Republic_v1.0.0.zip "$ROOT" Mauritania_Sahelian_Republic.mod
+          unzip -t releases/Mauritania_Sahelian_Republic_v1.0.0.zip
+          unzip -Z1 releases/Mauritania_Sahelian_Republic_v1.0.0.zip | grep -Fxq "Mauritania_Sahelian_Republic.mod"
+
+      - name: Commit release ZIP to branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --sparse releases/Mauritania_Sahelian_Republic_v1.0.0.zip
+          if git diff --cached --quiet; then
+            echo "Release ZIP is already current."
+          else
+            git commit -m "Package Mauritania submod v1.0.0 [skip ci]"
+            git push
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Mauritania_Sahelian_Republic_v1.0.0
+          path: releases/Mauritania_Sahelian_Republic_v1.0.0.zip
+          if-no-files-found: error
+          retention-days: 30

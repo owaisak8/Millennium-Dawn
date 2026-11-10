@@ -11874,6 +11874,7 @@ defined_text = {
 	text = { trigger = { original_tag = YAM } localization_key = YAM.liberalism }
 	text = { trigger = { original_tag = ZAM } localization_key = ZAM.liberalism }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.liberalism }
+	text = { trigger = { original_tag = MAU date < 2002.1.1 } localization_key = MAU.liberalism }
 	text = { localization_key = generic.liberalism }
 }
 
@@ -12870,6 +12871,7 @@ defined_text = {
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Autocracy }
 	text = { trigger = { original_tag = YEM } localization_key = YEM.Autocracy }
 	text = { trigger = { original_tag = ZIM } localization_key = ZIM.Autocracy }
+	text = { trigger = { original_tag = MAU has_country_flag = MAU_2001_election_held } localization_key = MAU.Autocracy_2001_PF }
 	text = { localization_key = generic.Autocracy }
 }
 
@@ -13985,6 +13987,8 @@ defined_text = {
 	text = { trigger = { original_tag = YAK } localization_key = YAK.Neutral_Autocracy }
 	text = { trigger = { original_tag = YAM } localization_key = YAM.Neutral_Autocracy }
 	text = { trigger = { original_tag = SIA } localization_key = SIA.Neutral_Autocracy }
+	text = { trigger = { original_tag = MAU has_country_flag = MAU_sidi_presidency date < 2008.8.6 } localization_key = MAU.Neutral_Autocracy_MITHAQ }
+	text = { trigger = { original_tag = MAU date < 2007.1.1 } localization_key = MAU.Neutral_Autocracy_pre2007 }
 	text = { localization_key = generic.Neutral_Autocracy }
 }
 
@@ -14363,7 +14367,8 @@ defined_text = {
 	text = { trigger = { original_tag = LIB } localization_key = LIB.Neutral_Muslim_Brotherhood }
 	text = { trigger = { original_tag = LKT } localization_key = LKT.Neutral_Muslim_Brotherhood }
 	text = { trigger = { original_tag = MAL } localization_key = MAL.Neutral_Muslim_Brotherhood }
-	text = { trigger = { original_tag = MAU } localization_key = MAU.Neutral_Muslim_Brotherhood }
+	text = { trigger = { original_tag = MAU date > 2007.1.1 } localization_key = MAU.Neutral_Muslim_Brotherhood }
+	text = { trigger = { original_tag = MAU date < 2007.1.1 } localization_key = MAU.Neutral_Muslim_Brotherhood_pre2007 }
 	text = { trigger = { original_tag = MAY } localization_key = MAY.Neutral_Muslim_Brotherhood }
 	text = { trigger = { original_tag = MEX } localization_key = MEX.Neutral_Muslim_Brotherhood }
 	text = { trigger = { original_tag = MLD } localization_key = MLD.Neutral_Muslim_Brotherhood }
@@ -14544,8 +14549,9 @@ defined_text = {
 	text = { trigger = { original_tag = LIT } localization_key = LIT.Nat_Populism }
 	text = { trigger = { original_tag = LKT } localization_key = LKT.Nat_Populism }
 	text = { trigger = { original_tag = LPR has_country_flag = SUB_russ_polit } localization_key = LPR.Nat_Populism_sov }
-	text = { trigger = { original_tag = MAU date < 2022.1.1 } localization_key = MAU.Nat_Populism }
-	text = { trigger = { original_tag = MAU date > 2022.1.1 } localization_key = MAU.Nat_Populism_alt }
+	text = { trigger = { original_tag = MAU date < 2009.1.1 } localization_key = MAU.Nat_Populism_preUPR }
+	text = { trigger = { original_tag = MAU date > 2008.12.31 date < 2022.1.1 } localization_key = MAU.Nat_Populism }
+	text = { trigger = { original_tag = MAU date > 2022.3.1 } localization_key = MAU.Nat_Populism_alt }
 	text = { trigger = { original_tag = MAY } localization_key = MAY.Nat_Populism }
 	text = { trigger = { original_tag = MEL } localization_key = MEL.Nat_Populism }
 	text = { trigger = { original_tag = MLD } localization_key = MLD.Nat_Populism }

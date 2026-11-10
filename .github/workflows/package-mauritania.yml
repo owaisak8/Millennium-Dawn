@@ -32,6 +32,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            README.md
+            descriptor.mod
+            integration/README.md
+            common/national_focus/05_mauritania.txt
+            common/national_focus/05_algeria.txt
+            common/ideas/Mauritanian.txt
+            common/scripted_effects/MAU_historical_system.txt
+            common/scripted_triggers/MAU_historical_triggers.txt
+            common/on_actions/99_MAU_on_actions.txt
+            common/decisions/Mauritania.txt
+            common/decisions/categories/99_MAU_decision_categories.txt
+            common/ai_strategy_plans/MAU_strategy_plans.txt
+            events/Mauritania.txt
+            localisation/english/MD_focus_MAU_l_english.yml
+            localisation/english/MD_politics_view_parties_l_english.yml
+            common/scripted_localisation/00_MD_politicsview_scripted_localisation.txt
+            interface/MD_decisions.gfx
+            interface/MD_eventpictures.gfx
+          sparse-checkout-cone-mode: false
 
       - name: Validate Mauritania content references
         shell: bash

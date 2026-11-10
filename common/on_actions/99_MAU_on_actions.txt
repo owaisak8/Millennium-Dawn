@@ -1,0 +1,38 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			MAU = {
+				MAU_initialise_party_support = yes
+				if = {
+					limit = { NOT = { has_country_flag = MAU_historical_content_started } }
+					set_country_flag = MAU_historical_content_started
+					country_event = { id = MAU.1 days = 1 }
+					country_event = { id = MAU.10 days = 657 }
+					country_event = { id = MAU.12 days = 731 }
+					country_event = { id = MAU.101 days = 900 }
+					country_event = { id = MAU.102 days = 2420 }
+					country_event = { id = MAU.103 days = 5160 }
+					country_event = { id = MAU.20 days = 1254 }
+					country_event = { id = MAU.21 days = 1406 }
+					country_event = { id = MAU.30 days = 2041 }
+					country_event = { id = MAU.40 days = 2514 }
+					country_event = { id = MAU.41 days = 2640 }
+					country_event = { id = MAU.50 days = 3140 }
+					country_event = { id = MAU.51 days = 3486 }
+					country_event = { id = MAU.60 days = 2776 }
+					country_event = { id = MAU.104 days = 5996 }
+					country_event = { id = MAU.70 days = 7152 }
+					country_event = { id = MAU.80 days = 9222 }
+				}
+			}
+		}
+	}
+	on_new_term_election = {
+		effect = {
+			if = {
+				limit = { original_tag = MAU has_elections = yes }
+				country_event = { id = MAU.90 days = 1 }
+			}
+		}
+	}
+}

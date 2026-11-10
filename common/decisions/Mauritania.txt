@@ -1,0 +1,104 @@
+MAU_national_development = {
+	MAU_nouadhibou_fisheries_programme = {
+		icon = GFX_decision_generic_factory
+		cost = 35
+		days_remove = 30
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_nouadhibou_fisheries_programme"
+			add_ideas = MAU_fisheries_exports
+			add_stability = 0.01
+		}
+		ai_will_do = { base = 2 }
+	}
+	MAU_snim_efficiency_review = {
+		icon = GFX_decision_generic_factory
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_snim_efficiency_review"
+			add_ideas = MAU_snim_reform
+			add_political_power = 20
+		}
+		ai_will_do = { base = 5 }
+	}
+	MAU_gta_transparency_audit = {
+		icon = GFX_decision_generic_factory
+		cost = 50
+		available = { date > 2024.12.31 has_country_flag = MAU_gta_production_started }
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_gta_transparency_audit"
+			add_ideas = MAU_resource_revenue_framework
+			add_stability = 0.02
+		}
+		ai_will_do = { base = 2 }
+	}
+}
+
+MAU_internal_affairs = {
+	MAU_fund_anti_slavery_enforcement = {
+		icon = GFX_decision_generic_political_discourse
+		cost = 50
+		available = { date > 2007.1.1 }
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_fund_anti_slavery_enforcement"
+			add_ideas = MAU_anti_slavery_enforcement
+			add_stability = 0.02
+		}
+		ai_will_do = { base = 5 }
+	}
+	MAU_strengthen_specialised_courts = {
+		icon = GFX_decision_generic_political_discourse
+		cost = 50
+		available = { date > 2015.1.1 has_country_flag = MAU_anti_slavery_enforcement_effort }
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_strengthen_specialised_courts"
+			add_ideas = MAU_specialised_courts
+			add_political_power = 15
+		}
+		ai_will_do = { base = 4 }
+	}
+	MAU_hold_local_consultations = {
+		icon = GFX_decision_generic_political_discourse
+		cost = 30
+		available = { MAU_is_civilian_government = yes }
+		days_remove = 30
+		days_re_enable = 365
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_hold_local_consultations"
+			add_stability = 0.02
+			add_political_power = 10
+		}
+		ai_will_do = { base = 2 }
+	}
+}
+
+MAU_sahel_security = {
+	MAU_border_intelligence_coordination = {
+		icon = GFX_decision_generic_military
+		cost = 50
+		days_remove = 30
+		days_re_enable = 365
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_border_intelligence_coordination"
+			add_ideas = MAU_sahel_cooperation
+			army_experience = 5
+		}
+		ai_will_do = { base = 2 }
+	}
+	MAU_mobile_desert_patrols = {
+		icon = GFX_decision_generic_military
+		cost = 35
+		days_remove = 30
+		days_re_enable = 180
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision MAU_mobile_desert_patrols"
+			add_ideas = MAU_desert_mobility
+			add_war_support = 0.01
+		}
+		ai_will_do = { base = 3 }
+	}
+}

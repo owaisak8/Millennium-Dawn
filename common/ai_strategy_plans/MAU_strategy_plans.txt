@@ -1,0 +1,103 @@
+MAU_tayas_republic = {
+	allowed = { original_tag = MAU }
+	name = "The Taya Administration"
+	desc = "Historical behaviour for the PRDS government and the 2005 transition."
+
+	enable = {
+		original_tag = MAU
+		NOT = { has_country_flag = MAU_early_military_takeover }
+		NOT = { has_country_flag = MAU_taya_resisted_2005 }
+		NOT = { has_country_flag = MAU_aziz_elected_2009 }
+		NOT = { has_country_flag = MAU_national_unity_government }
+	}
+
+	ai_national_focuses = {
+		MAU_a_nation_at_the_crossroads
+		MAU_preserve_prds_government
+		MAU_rebuild_the_ruling_party
+		MAU_manage_the_2003_coup_attempt
+		MAU_secure_the_constitution
+		MAU_transition_council
+		MAU_prepare_the_2006_transition
+		MAU_return_to_civilian_rule
+		MAU_protect_the_2007_mandate
+		MAU_consolidate_the_aziz_order
+		MAU_negotiate_the_dakar_accord
+		MAU_organise_the_2009_election
+	}
+
+	focus_factors = {
+		MAU_reopen_political_space = 0
+		MAU_reconcile_with_the_opposition = 0
+		MAU_support_multiparty_elections = 0
+		MAU_restore_action_for_change = 0
+		MAU_protect_independent_press = 0
+		MAU_strengthen_judicial_independence = 0
+		MAU_dialogue_with_islamist_movement = 0
+		MAU_legalise_tawassoul_participation = 0
+		MAU_prevent_the_2008_coup = 0
+	}
+}
+
+MAU_sahelian_development = {
+	allowed = { original_tag = MAU }
+	name = "Sahelian Development"
+	desc = "AI priorities for resource development, infrastructure, human development and regional security."
+
+	enable = {
+		original_tag = MAU
+		OR = {
+			has_country_flag = MAU_aziz_elected_2009
+			has_country_flag = MAU_national_unity_government
+			has_country_flag = MAU_early_military_takeover
+			has_country_flag = MAU_taya_resisted_2005
+		}
+	}
+
+	ai_national_focuses = {
+		MAU_rebuild_snim
+		MAU_expand_the_zouerate_railway
+		MAU_modernise_nouadhibou_port
+		MAU_process_iron_at_home
+		MAU_regulate_the_fisheries
+		MAU_build_fish_processing_capacity
+		MAU_develop_the_senegal_river_basin
+		MAU_expand_gorgol_irrigation
+		MAU_electrify_the_interior
+		MAU_develop_solar_and_wind
+		MAU_connect_rural_communities
+		MAU_professionalise_the_armed_forces
+		MAU_train_desert_mobile_units
+		MAU_secure_the_eastern_frontier
+		MAU_coordinate_intelligence
+		MAU_protect_the_atlantic_coast
+		MAU_balanced_foreign_policy
+		MAU_build_national_cohesion
+		MAU_enforce_the_anti_slavery_law
+		MAU_extend_rural_schooling
+		MAU_support_multiparty_elections
+		MAU_protect_independent_press
+		MAU_strengthen_judicial_independence
+		MAU_institutionalise_civilian_rule
+		MAU_expand_mithaq_coalition
+		MAU_dialogue_with_islamist_movement
+		MAU_legalise_tawassoul_participation
+		MAU_parliamentary_social_programme
+		MAU_build_resource_skills
+		MAU_domestic_gas_supply
+		MAU_gas_transparency_and_stabilisation
+		MAU_develop_sahelian_security_centre
+		MAU_empower_regional_councils
+		MAU_expand_rural_livelihoods
+		MAU_expand_mining_training
+		MAU_promote_sustainable_fisheries
+		MAU_create_a_sahelian_trade_corridor
+		MAU_el_insaf_institutional_reform
+		MAU_aziz_infrastructure_drive
+	}
+
+	focus_factors = {
+		MAU_restore_action_for_change = 0
+		MAU_limit_presidential_interference = 0
+	}
+}

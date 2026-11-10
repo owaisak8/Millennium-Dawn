@@ -1,0 +1,187 @@
+# Initial MAU political distribution: existing PRDS government, recognised opposition parties and military influence.
+MAU_initialise_party_support = {
+	if = {
+		limit = { NOT = { has_country_flag = MAU_party_distribution_initialised } }
+		set_variable = { party_pop_array^0 = 0.41 }
+		set_variable = { party_pop_array^1 = 0.05 }
+		set_variable = { party_pop_array^2 = 0.05 }
+		set_variable = { party_pop_array^3 = 0 }
+		set_variable = { party_pop_array^4 = 0 }
+		set_variable = { party_pop_array^5 = 0.08 }
+		set_variable = { party_pop_array^6 = 0.05 }
+		set_variable = { party_pop_array^7 = 0 }
+		set_variable = { party_pop_array^8 = 0 }
+		set_variable = { party_pop_array^9 = 0 }
+		set_variable = { party_pop_array^10 = 0 }
+		set_variable = { party_pop_array^11 = 0 }
+		set_variable = { party_pop_array^12 = 0 }
+		set_variable = { party_pop_array^13 = 0.08 }
+		set_variable = { party_pop_array^14 = 0 }
+		set_variable = { party_pop_array^15 = 0 }
+		set_variable = { party_pop_array^16 = 0 }
+		set_variable = { party_pop_array^17 = 0 }
+		set_variable = { party_pop_array^18 = 0.04 }
+		set_variable = { party_pop_array^19 = 0 }
+		set_variable = { party_pop_array^20 = 0.02 }
+		set_variable = { party_pop_array^21 = 0 }
+		set_variable = { party_pop_array^22 = 0.22 }
+		set_variable = { party_pop_array^23 = 0 }
+		recalculate_party = yes
+		set_country_flag = MAU_party_distribution_initialised
+	}
+}
+
+# Country-specific effects use Millennium Dawn's existing party, election and coalition system.
+MAU_set_prds_government = {
+	set_temp_variable = { rul_party_temp = 0 }
+	set_temp_variable = { col_one = 22 }
+	set_temp_variable = { disable_elections = 0 }
+	change_ruling_party_effect = yes
+}
+
+MAU_set_military_government = {
+	set_temp_variable = { rul_party_temp = 22 }
+	set_temp_variable = { col_one = 0 }
+	set_temp_variable = { disable_elections = 1 }
+	change_ruling_party_effect = yes
+}
+
+MAU_set_civilian_coalition = {
+	set_temp_variable = { rul_party_temp = 13 }
+	set_temp_variable = { col_one = 0 }
+	set_temp_variable = { col_two = 1 }
+	set_temp_variable = { col_three = 14 }
+	set_temp_variable = { disable_elections = 0 }
+	change_ruling_party_effect = yes
+}
+
+MAU_set_upr_government = {
+	set_temp_variable = { rul_party_temp = 20 }
+	set_temp_variable = { col_one = 0 }
+	set_temp_variable = { disable_elections = 0 }
+	change_ruling_party_effect = yes
+}
+
+MAU_resolve_election = {
+	set_temp_variable = { MAU_best_vote = -1 }
+	set_temp_variable = { MAU_best_party = 0 }
+	clear_temp_array = MAU_election_candidates
+	add_to_temp_array = { MAU_election_candidates = 0 }
+	add_to_temp_array = { MAU_election_candidates = 1 }
+	add_to_temp_array = { MAU_election_candidates = 2 }
+	add_to_temp_array = { MAU_election_candidates = 3 }
+	add_to_temp_array = { MAU_election_candidates = 4 }
+	add_to_temp_array = { MAU_election_candidates = 5 }
+	add_to_temp_array = { MAU_election_candidates = 6 }
+	add_to_temp_array = { MAU_election_candidates = 7 }
+	add_to_temp_array = { MAU_election_candidates = 11 }
+	add_to_temp_array = { MAU_election_candidates = 12 }
+	add_to_temp_array = { MAU_election_candidates = 13 }
+	add_to_temp_array = { MAU_election_candidates = 14 }
+	add_to_temp_array = { MAU_election_candidates = 18 }
+	add_to_temp_array = { MAU_election_candidates = 20 }
+	add_to_temp_array = { MAU_election_candidates = 21 }
+	add_to_temp_array = { MAU_election_candidates = 22 }
+	for_each_loop = {
+		array = MAU_election_candidates
+		value = MAU_candidate
+		if = {
+			limit = {
+				check_variable = { party_pop_array^MAU_candidate > MAU_best_vote }
+				NOT = { check_variable = { party_banned_array^MAU_candidate = 1 } }
+			}
+			set_temp_variable = { MAU_best_vote = party_pop_array^MAU_candidate }
+			set_temp_variable = { MAU_best_party = MAU_candidate }
+		}
+	}
+	for_loop_effect = {
+		start = 0
+		end = 24
+		value = MAU_election_record_index
+		set_variable = {
+			party_pop_elect_array^MAU_election_record_index = party_pop_array^MAU_election_record_index
+		}
+	}
+	add_to_variable = { MAU_elections_held = 1 }
+	set_temp_variable = { rul_party_temp = MAU_best_party }
+	set_temp_variable = { disable_elections = 0 }
+	if = {
+		limit = { check_variable = { MAU_best_party = 0 } }
+		set_temp_variable = { col_one = 22 }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 13 } }
+		set_temp_variable = { col_one = 0 }
+		set_temp_variable = { col_two = 1 }
+		set_temp_variable = { col_three = 14 }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 20 } }
+		set_temp_variable = { col_one = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 22 } }
+		set_temp_variable = { disable_elections = 1 }
+	}
+	change_ruling_party_effect = yes
+	set_variable = { MAU_last_election_winner = MAU_best_party }
+	if = {
+		limit = { check_variable = { MAU_best_party = 2 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Messaoud Ould Boulkheir" ideology = liberalism }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 1 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Naha Mint Mouknass" ideology = conservatism }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 6 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Mohamed Ould Maouloud" ideology = reactionary }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 18 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Ahmed Ould Daddah" ideology = neutral_Social }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 12 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Jemil Ould Mansour" ideology = Neutral_Muslim_Brotherhood }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 13 } date < 2008.8.6 }
+		kill_country_leader = yes
+		create_country_leader = { name = "Sidi Ould Cheikh Abdallahi" ideology = Neutral_Autocracy }
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 20 } }
+		kill_country_leader = yes
+		if = {
+			limit = { date < 2019.6.22 }
+			create_country_leader = { name = "Mohamed Ould Abdel Aziz" picture = "Mohamed_Ould_Abdel_Aziz.dds" ideology = Nat_Populism }
+		}
+		else = {
+			create_country_leader = { name = "Mohamed Ould Ghazouani" ideology = Nat_Populism }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { MAU_best_party = 22 } }
+		kill_country_leader = yes
+		create_country_leader = { name = "Mauritanian Military Council" ideology = Nat_Autocracy }
+	}
+	add_stability = 0.02
+}
+
+MAU_add_prds_support = {
+	set_temp_variable = { party_index = 0 }
+	set_temp_variable = { party_popularity_increase = 0.03 }
+	change_relative_party_popularity = yes
+}
+
+MAU_add_opposition_support = {
+	set_temp_variable = { party_index = 18 }
+	set_temp_variable = { party_popularity_increase = 0.02 }
+	change_relative_party_popularity = yes
+}

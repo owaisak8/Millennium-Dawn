@@ -93,7 +93,7 @@ jobs:
 
           for path in required[:9]:
               content = (root / path).read_text(encoding="utf-8-sig")
-              code = re.sub(r'"(?:\.|[^"\])*"', '""', content)
+              code = re.sub(r'"[^"]*"', '""', content)
               code = re.sub(r"#.*", "", code)
               depth = 0
               for ch in code:

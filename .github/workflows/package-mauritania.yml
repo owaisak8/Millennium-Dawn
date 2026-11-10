@@ -21,6 +21,7 @@ on:
       - 'integration/README.md'
       - 'descriptor.mod'
       - 'Mauritania_Sahelian_Republic.mod'
+      - '.github/workflows/package-mauritania.yml'
   workflow_dispatch:
 
 permissions:

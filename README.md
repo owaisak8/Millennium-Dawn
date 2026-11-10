@@ -35,6 +35,8 @@ Those are shared Millennium Dawn files. They are deliberately not shipped as rep
 
 ## Compatibility and validation
 
+The package workflow runs a local reference preflight and creates a ZIP archive under `releases/` when the country files or packaging workflow change. The workflow checks the archive with `unzip -t` before committing it.
+
 The submod does not replace Mauritania's map, states, order of battle, division templates or existing military characters. It adds country-specific files and makes small, deliberate additions to the shared party-display hooks.
 
 The GitHub branch includes structural checks and an automated package workflow. Repository validation can catch script, localisation, icon and reference errors. A full Hearts of Iron IV launch and campaign playtest still has to be completed in-game before calling the release fully playtested.

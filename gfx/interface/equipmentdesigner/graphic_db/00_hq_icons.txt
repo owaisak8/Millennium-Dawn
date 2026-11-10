@@ -1,3 +1,0 @@
-# Shadows vanilla 00_hq_icons.txt, which keys HQ designer icons on the removed
-# infantry_equipment archetype (MD uses infantry_weapons_type) and logs
-# "Unknown equipment type: infantry_equipment". MD assigns no HQ icons.

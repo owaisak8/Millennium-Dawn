@@ -1,6 +1,0 @@
-HLS_decision_category = {
-	allowed = { original_tag = HLS }
-	icon = generic_political_actions
-
-	priority = 25
-}

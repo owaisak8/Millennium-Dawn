@@ -1,7 +1,0 @@
-spriteTypes = {
-
-	SpriteType = {
-		name = "GFX_game_rule_nukes"
-		texturefile = "gfx/game_rules/nukes.dds"
-	}
-}

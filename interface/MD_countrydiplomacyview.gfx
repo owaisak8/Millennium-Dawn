@@ -1,7 +1,0 @@
-spriteTypes = {
-	spriteType = {
-		name = "GFX_tab_extra_large"
-		texturefile = "gfx/interface/tab_extra_large.dds"
-        noOfFrames = 2
-	}
-}

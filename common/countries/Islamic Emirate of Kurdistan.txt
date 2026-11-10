@@ -1,5 +1,0 @@
-#I.E Kurdistan
-graphical_culture = kurdish_gfx
-graphical_culture_2d = middle_eastern_2d
-
-color = { 255  208  0 }

@@ -1,4 +1,5 @@
 # Mauritania country focus tree. Historical spine with reform and development alternatives.
+# Package workflow validation rerun after preflight regex correction.
 focus_tree = {
 	id = MAU_focus
 	country = {
